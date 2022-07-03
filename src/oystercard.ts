@@ -31,6 +31,7 @@ export default class Oystercard {
     if (!this.isInJourney) throw new Error('Not in journey')
 
     this.#deduct(1)
+    this.entryStation = ''
     this.#changeJourneyStatus()
   }
 
