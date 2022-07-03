@@ -3,12 +3,14 @@ export default class Oystercard {
   maxBalance: number
   isInJourney: boolean
   minFare: number
+  entryStation: string
 
   constructor() {
     this.balance = 0
     this.maxBalance = 90
     this.isInJourney = false
     this.minFare = 1
+    this.entryStation = ''
   }
 
   topUp(amount: number): number {
@@ -17,10 +19,11 @@ export default class Oystercard {
     return this.balance += amount
   }
 
-  touchIn() {
+  touchIn(entryStation: string) {
     if (this.isInJourney) throw new Error('Already in journey')
     if (this.balance < this.minFare) throw new Error('Insufficient funds')
 
+    this.entryStation = entryStation
     this.#changeJourneyStatus()
   }
 

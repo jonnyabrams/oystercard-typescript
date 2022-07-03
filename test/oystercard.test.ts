@@ -8,7 +8,7 @@ describe('Oystercard', () => {
   })
 
   const touchInAndOut = () => {
-    card.touchIn()
+    card.touchIn('Camden')
     card.touchOut()
   }
 
@@ -44,18 +44,24 @@ describe('Oystercard', () => {
   describe('touchIn', () => {
     it('sets isInJourney to true', () => {
       card.topUp(1)
-      card.touchIn()
+      card.touchIn('Camden')
       expect(card.isInJourney).toBe(true)
     })
 
     it('cannot touch in if already in journey', () => {
       card.topUp(1)
-      card.touchIn()
-      expect(() => {card.touchIn()}).toThrowError('Already in journey')
+      card.touchIn('Camden')
+      expect(() => {card.touchIn('Euston')}).toThrowError('Already in journey')
     })
 
     it('cannot touch in if balance is under £1', () => {
-      expect(() => {card.touchIn()}).toThrowError('Insufficient funds')
+      expect(() => {card.touchIn('Camden')}).toThrowError('Insufficient funds')
+    })
+
+    it('records the entry station', () => {
+      card.topUp(1)
+      card.touchIn('Camden')
+      expect(card.entryStation).toEqual('Camden')
     })
   })
 
