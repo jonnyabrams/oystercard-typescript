@@ -4,7 +4,8 @@ export default class Calculator {
   constructor() {
     this.value = 0
   }
-  // add(x: number, y: number): number {
-  //   return x + y
-  // }
+
+  add(n: number): number {
+    return n
+  }
 }
