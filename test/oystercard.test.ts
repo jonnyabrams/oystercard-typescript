@@ -7,6 +7,11 @@ describe('Oystercard', () => {
     card = new Oystercard
   })
 
+  const touchInAndOut = () => {
+    card.touchIn()
+    card.touchOut()
+  }
+
   it('initialises with a balance of 0', () => {
     expect(card.balance).toEqual(0)
   })
@@ -57,8 +62,7 @@ describe('Oystercard', () => {
   describe('touchOut', () => {
     it('sets isInJourney to false', () => {
       card.topUp(1)
-      card.touchIn()
-      card.touchOut()
+      touchInAndOut()
       expect(card.isInJourney).toBe(false)
     })
 
@@ -68,12 +72,10 @@ describe('Oystercard', () => {
 
     it('deducts the minimum fare from the balance', () => {
       card.topUp(1)
-      card.touchIn()
-      card.touchOut()
+      touchInAndOut()
       expect(card.balance).toEqual(0)
       card.topUp(10)
-      card.touchIn()
-      card.touchOut()
+      touchInAndOut()
       expect(card.balance).toEqual(9)
     })
   })
