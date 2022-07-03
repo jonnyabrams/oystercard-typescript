@@ -30,9 +30,7 @@ export default class Oystercard {
   touchOut() {
     if (!this.isInJourney) throw new Error('Not in journey')
 
-    this.#deduct(1)
-    this.entryStation = ''
-    this.#changeJourneyStatus()
+    this.#handleTouchOut()
   }
 
   #deduct(amount: number): number {
@@ -41,6 +39,12 @@ export default class Oystercard {
 
   #changeJourneyStatus() {
     this.isInJourney = !this.isInJourney
+  }
+
+  #handleTouchOut() {
+    this.#deduct(1)
+    this.entryStation = ''
+    this.#changeJourneyStatus()
   }
 
 }
