@@ -43,4 +43,29 @@ describe('Oystercard', () => {
       expect(card.balance).toEqual(4)
     })
   })
+
+  describe('touchIn', () => {
+    it('sets isInJourney to true', () => {
+      card.touchIn()
+      expect(card.isInJourney).toBe(true)
+    })
+
+    it('cannot touch in if already in journey', () => {
+      const card2 = new Oystercard
+      card2.touchIn()
+      expect(() => {card2.touchIn()}).toThrowError('Already in journey')
+    })
+  })
+
+  describe('touchOut', () => {
+    it('sets isInJourney to false', () => {
+      card.touchIn()
+      card.touchOut()
+      expect(card.isInJourney).toBe(false)
+    })
+
+    it('cannot touch out if it was not in journey', () => {
+      expect(() => {card.touchOut()}).toThrowError('Not in journey')
+    })
+  })
 })

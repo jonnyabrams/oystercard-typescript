@@ -18,4 +18,21 @@ export default class Oystercard {
   deduct(amount: number): number {
     return this.balance -= amount
   }
+
+  touchIn() {
+    if (this.isInJourney) throw new Error('Already in journey')
+
+    this.#changeJourneyStatus()
+  }
+
+  touchOut() {
+    if (!this.isInJourney) throw new Error('Not in journey')
+
+    this.#changeJourneyStatus()
+  }
+
+  #changeJourneyStatus() {
+    this.isInJourney = !this.isInJourney
+  }
+
 }
