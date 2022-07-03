@@ -25,6 +25,18 @@ describe('Oystercard', () => {
       const card3 = new Oystercard
       card3.topUp(60)
       expect(() => { card3.topUp(38) }).toThrowError('Cannot exceed £90 limit')
+      const card4 = new Oystercard
+      card4.topUp(89)
+      expect(() => { card4.topUp(1) }).not.toThrowError
+      expect(() => { card4.topUp(2) }).toThrowError('Cannot exceed £90 limit')
+    })
+  })
+
+  describe('deduct', () => {
+    it('takes money from the balance', () => {
+      card.topUp(10)
+      card.deduct(6)
+      expect(card.balance).toEqual(4)
     })
   })
 })

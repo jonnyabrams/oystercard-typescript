@@ -8,8 +8,12 @@ export default class Oystercard {
   }
 
   topUp(amount: number): number {
-    if (this.balance === this.maxBalance || amount > this.maxBalance || this.balance + amount > this.maxBalance) throw new Error('Cannot exceed £90 limit')
+    if (this.balance === this.maxBalance || amount > this.maxBalance || this.balance + amount > this.maxBalance) throw new Error(`Cannot exceed £${this.maxBalance} limit`)
 
     return this.balance += amount
+  }
+
+  deduct(amount: number): number {
+    return this.balance -= amount
   }
 }
