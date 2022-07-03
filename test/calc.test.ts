@@ -10,4 +10,10 @@ describe('test add function', () => {
     let calc = new Calculator
     expect(calc.add(5)).toEqual(5)
   })
+
+  it('should store this addition as the value', () => {
+    let calc = new Calculator
+    calc.add(9)
+    expect((calc.value)).toEqual(9)
+  })
 })
