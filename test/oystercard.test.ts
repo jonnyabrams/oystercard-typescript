@@ -46,19 +46,25 @@ describe('Oystercard', () => {
 
   describe('touchIn', () => {
     it('sets isInJourney to true', () => {
+      card.topUp(1)
       card.touchIn()
       expect(card.isInJourney).toBe(true)
     })
 
     it('cannot touch in if already in journey', () => {
-      const card2 = new Oystercard
-      card2.touchIn()
-      expect(() => {card2.touchIn()}).toThrowError('Already in journey')
+      card.topUp(1)
+      card.touchIn()
+      expect(() => {card.touchIn()}).toThrowError('Already in journey')
+    })
+
+    it('cannot touch in if balance is under £1', () => {
+      expect(() => {card.touchIn()}).toThrowError('Insufficient funds')
     })
   })
 
   describe('touchOut', () => {
     it('sets isInJourney to false', () => {
+      card.topUp(1)
       card.touchIn()
       card.touchOut()
       expect(card.isInJourney).toBe(false)
