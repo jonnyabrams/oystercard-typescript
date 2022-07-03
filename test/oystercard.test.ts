@@ -11,6 +11,10 @@ describe('Oystercard', () => {
     expect(card.balance).toEqual(0)
   })
 
+  it('initialises with isInJourney set to false', () => {
+    expect(card.isInJourney).toBe(false)
+  })
+
   describe('topUp', () => {
     it('can add money to the balance', () => {
       card.topUp(10)
