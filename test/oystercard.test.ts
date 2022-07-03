@@ -36,14 +36,6 @@ describe('Oystercard', () => {
     })
   })
 
-  describe('deduct', () => {
-    it('takes money from the balance', () => {
-      card.topUp(10)
-      card.deduct(6)
-      expect(card.balance).toEqual(4)
-    })
-  })
-
   describe('touchIn', () => {
     it('sets isInJourney to true', () => {
       card.topUp(1)
@@ -72,6 +64,17 @@ describe('Oystercard', () => {
 
     it('cannot touch out if it was not in journey', () => {
       expect(() => {card.touchOut()}).toThrowError('Not in journey')
+    })
+
+    it('deducts the minimum fare from the balance', () => {
+      card.topUp(1)
+      card.touchIn()
+      card.touchOut()
+      expect(card.balance).toEqual(0)
+      card.topUp(10)
+      card.touchIn()
+      card.touchOut()
+      expect(card.balance).toEqual(9)
     })
   })
 })

@@ -17,10 +17,6 @@ export default class Oystercard {
     return this.balance += amount
   }
 
-  deduct(amount: number): number {
-    return this.balance -= amount
-  }
-
   touchIn() {
     if (this.isInJourney) throw new Error('Already in journey')
     if (this.balance < this.minFare) throw new Error('Insufficient funds')
@@ -31,7 +27,12 @@ export default class Oystercard {
   touchOut() {
     if (!this.isInJourney) throw new Error('Not in journey')
 
+    this.#deduct(1)
     this.#changeJourneyStatus()
+  }
+
+  #deduct(amount: number): number {
+    return this.balance -= amount
   }
 
   #changeJourneyStatus() {
