@@ -27,7 +27,7 @@ export default class Oystercard {
     this.#changeJourneyStatus()
   }
 
-  touchOut() {
+  touchOut(exitStation: string) {
     if (!this.isInJourney()) throw new Error('Not in journey')
 
     this.#handleTouchOut()

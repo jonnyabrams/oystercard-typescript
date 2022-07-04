@@ -9,7 +9,7 @@ describe('Oystercard', () => {
 
   const touchInAndOut = () => {
     card.touchIn('Camden')
-    card.touchOut()
+    card.touchOut('Euston')
   }
 
   it('initialises with a balance of 0', () => {
@@ -77,7 +77,7 @@ describe('Oystercard', () => {
     })
 
     it('cannot touch out if it was not in journey', () => {
-      expect(() => {card.touchOut()}).toThrowError('Not in journey')
+      expect(() => {card.touchOut('Paddington')}).toThrowError('Not in journey')
     })
 
     it('deducts the minimum fare from the balance', () => {
