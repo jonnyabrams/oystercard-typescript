@@ -20,7 +20,7 @@ export default class Journey {
   }
 
   recordJourney(): object {
-    return { entryStation: this.entryStation, exitStation: this.exitStation, fare: this.fareCharged }
+    return { entryStation: this.entryStation, exitStation: this.exitStation, fare: this.fareCharged() }
   }
 
   isComplete(): boolean {

@@ -83,6 +83,10 @@ describe('Oystercard', () => {
       card.topUp(10)
       touchInAndOut()
       expect(card.balance).toEqual(9)
+      card.topUp(11)
+      card.touchIn('Victoria')
+      card.touchOut('Paddington')
+      expect(card.balance).toEqual(19)
     })
 
     it('resets the entryStation to an empty string', () => {

@@ -40,9 +40,8 @@ export default class Oystercard {
   }
 
   #handleTouchOut() {
-    this.#deduct
     this.journeyHistory.push({ entryStation: this.currentJourney.entryStation, exitStation: this.currentJourney.exitStation, fare: this.currentJourney.fareCharged() })
-    this.currentJourney.entryStation = ''
+    this.#deduct()
+    this.currentJourney = new Journey
   }
-
 }
