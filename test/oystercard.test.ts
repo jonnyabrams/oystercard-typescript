@@ -16,8 +16,8 @@ describe('Oystercard', () => {
     expect(card.balance).toEqual(0)
   })
 
-  it('initialises with isInJourney set to false', () => {
-    expect(card.isInJourney).toBe(false)
+  it('starts out with isInJourney set to false', () => {
+    expect(card.isInJourney()).toBe(false)
   })
 
   describe('topUp', () => {
@@ -45,7 +45,7 @@ describe('Oystercard', () => {
     it('sets isInJourney to true', () => {
       card.topUp(1)
       card.touchIn('Camden')
-      expect(card.isInJourney).toBe(true)
+      expect(card.isInJourney()).toBe(true)
     })
 
     it('cannot touch in if already in journey', () => {
@@ -69,7 +69,7 @@ describe('Oystercard', () => {
     it('sets isInJourney to false', () => {
       card.topUp(1)
       touchInAndOut()
-      expect(card.isInJourney).toBe(false)
+      expect(card.isInJourney()).toBe(false)
     })
 
     it('cannot touch out if it was not in journey', () => {

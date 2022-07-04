@@ -1,14 +1,12 @@
 export default class Oystercard {
   balance: number
   maxBalance: number
-  isInJourney: boolean
   minFare: number
   entryStation: string
 
   constructor() {
     this.balance = 0
     this.maxBalance = 90
-    this.isInJourney = false
     this.minFare = 1
     this.entryStation = ''
   }
@@ -20,7 +18,7 @@ export default class Oystercard {
   }
 
   touchIn(entryStation: string) {
-    if (this.isInJourney) throw new Error('Already in journey')
+    if (this.isInJourney()) throw new Error('Already in journey')
     if (this.balance < this.minFare) throw new Error('Insufficient funds')
 
     this.entryStation = entryStation
@@ -28,9 +26,13 @@ export default class Oystercard {
   }
 
   touchOut() {
-    if (!this.isInJourney) throw new Error('Not in journey')
+    if (!this.isInJourney()) throw new Error('Not in journey')
 
     this.#handleTouchOut()
+  }
+
+  isInJourney(): boolean {
+    return this.entryStation === '' ? false : true
   }
 
   #deduct(amount: number): number {
@@ -38,7 +40,11 @@ export default class Oystercard {
   }
 
   #changeJourneyStatus() {
-    this.isInJourney = !this.isInJourney
+    if (this.isInJourney() === true) {
+      this.isInJourney() === false
+    } else {
+      this.isInJourney() === true
+    }
   }
 
   #handleTouchOut() {
