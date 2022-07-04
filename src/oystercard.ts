@@ -3,12 +3,14 @@ export default class Oystercard {
   maxBalance: number
   minFare: number
   entryStation: string
+  journeyHistory: {entryStation: string, exitStation: string}[]
 
   constructor() {
     this.balance = 0
     this.maxBalance = 90
     this.minFare = 1
     this.entryStation = ''
+    this.journeyHistory = []
   }
 
   topUp(amount: number): number {

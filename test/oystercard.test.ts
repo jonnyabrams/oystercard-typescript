@@ -20,6 +20,10 @@ describe('Oystercard', () => {
     expect(card.isInJourney()).toBe(false)
   })
 
+  it('initialises with an empty array for storing journey history', () => {
+    expect(card.journeyHistory).toEqual([])
+  })
+
   describe('topUp', () => {
     it('can add money to the balance', () => {
       card.topUp(10)
