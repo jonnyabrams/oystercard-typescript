@@ -95,4 +95,10 @@ describe('Oystercard', () => {
       expect(card.entryStation).toEqual('')
     })
   })
+
+  it('stores a complete journey in journeyHistory', () => {
+    card.topUp(1)
+    touchInAndOut()
+    expect(card.journeyHistory).toEqual([{ entryStation: 'Camden', exitStation: 'Euston' }])
+  })
 })

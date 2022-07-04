@@ -3,6 +3,7 @@ export default class Oystercard {
   maxBalance: number
   minFare: number
   entryStation: string
+  exitStation: string
   journeyHistory: {entryStation: string, exitStation: string}[]
 
   constructor() {
@@ -10,6 +11,7 @@ export default class Oystercard {
     this.maxBalance = 90
     this.minFare = 1
     this.entryStation = ''
+    this.exitStation = ''
     this.journeyHistory = []
   }
 
@@ -30,6 +32,7 @@ export default class Oystercard {
   touchOut(exitStation: string) {
     if (!this.isInJourney()) throw new Error('Not in journey')
 
+    this.exitStation = exitStation
     this.#handleTouchOut()
   }
 
@@ -51,6 +54,7 @@ export default class Oystercard {
 
   #handleTouchOut() {
     this.#deduct(1)
+    this.journeyHistory.push({ entryStation: this.entryStation, exitStation: this.exitStation })
     this.entryStation = ''
     this.#changeJourneyStatus()
   }
