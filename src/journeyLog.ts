@@ -18,5 +18,7 @@ export default class JourneyLog {
     this.journeys.push({ entryStation: this.currentJourney.entryStation, exitStation: this.currentJourney.exitStation, fare: this.currentJourney.fareCharged() })
   }
 
-  
+  whichJourney() {
+    return this.currentJourney.isComplete() ? new Journey : this.currentJourney
+  }
 }

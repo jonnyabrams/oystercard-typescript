@@ -33,4 +33,13 @@ describe('JourneyLog', () => {
     })
   })
 
+  describe('whichJourney', () => {
+    it('knows which journey it is on', () => {
+      journeyLog.start('Camden')
+      expect(journeyLog.whichJourney()).toEqual(journeyLog.currentJourney)
+      journeyLog.finish('Euston')
+      expect(journeyLog.whichJourney()).toEqual(new Journey)
+    })
+  })
+
 })
