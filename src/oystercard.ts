@@ -31,15 +31,15 @@ export default class Oystercard {
   touchOut(exitStation: string) {
     if (this.currentJourney.entryStation === '') throw new Error('Not in journey')
 
-    this.currentJourney.endJourney(exitStation)
-    this.#handleTouchOut()
+    this.#handleTouchOut(exitStation)
   }
 
   #deduct(): number {
     return this.balance -= this.currentJourney.fareCharged()
   }
 
-  #handleTouchOut() {
+  #handleTouchOut(exitStation: string) {
+    this.currentJourney.endJourney(exitStation)
     this.journeyHistory.push({ entryStation: this.currentJourney.entryStation, exitStation: this.currentJourney.exitStation, fare: this.currentJourney.fareCharged() })
     this.#deduct()
     this.currentJourney = new Journey
