@@ -16,10 +16,6 @@ describe('Oystercard', () => {
     expect(card.balance).toEqual(0)
   })
 
-  it('starts out with isInJourney set to false', () => {
-    expect(card.isInJourney()).toBe(false)
-  })
-
   it('initialises with an empty array for storing journey history', () => {
     expect(card.journeyHistory).toEqual([])
   })
@@ -46,11 +42,11 @@ describe('Oystercard', () => {
   })
 
   describe('touchIn', () => {
-    it('sets isInJourney to true', () => {
-      card.topUp(1)
-      card.touchIn('Camden')
-      expect(card.isInJourney()).toBe(true)
-    })
+    // it('sets isInJourney to true', () => {
+    //   card.topUp(1)
+    //   card.touchIn('Camden')
+    //   expect(card.isInJourney()).toBe(true)
+    // })
 
     it('cannot touch in if already in journey', () => {
       card.topUp(1)
@@ -65,16 +61,16 @@ describe('Oystercard', () => {
     it('records the entry station', () => {
       card.topUp(1)
       card.touchIn('Camden')
-      expect(card.entryStation).toEqual('Camden')
+      expect(card.currentJourney.entryStation).toEqual('Camden')
     })
   })
 
   describe('touchOut', () => {
-    it('sets isInJourney to false', () => {
-      card.topUp(1)
-      touchInAndOut()
-      expect(card.isInJourney()).toBe(false)
-    })
+    // it('sets isInJourney to false', () => {
+    //   card.topUp(1)
+    //   touchInAndOut()
+    //   expect(card.isInJourney()).toBe(false)
+    // })
 
     it('cannot touch out if it was not in journey', () => {
       expect(() => {card.touchOut('Paddington')}).toThrowError('Not in journey')
@@ -92,17 +88,17 @@ describe('Oystercard', () => {
     it('resets the entryStation to an empty string', () => {
       card.topUp(1)
       touchInAndOut()
-      expect(card.entryStation).toEqual('')
+      expect(card.currentJourney.entryStation).toEqual('')
     })
   })
 
   it('stores a complete journey in journeyHistory', () => {
     card.topUp(1)
     touchInAndOut()
-    expect(card.journeyHistory).toEqual([{ entryStation: 'Camden', exitStation: 'Euston' }])
+    expect(card.journeyHistory).toEqual([{ entryStation: 'Camden', exitStation: 'Euston', fare: 1 }])
     card.topUp(1)
     card.touchIn('Bank')
     card.touchOut('Victoria')
-    expect(card.journeyHistory).toEqual([{ entryStation: 'Camden', exitStation: 'Euston' }, { entryStation: 'Bank', exitStation: 'Victoria' }])
+    expect(card.journeyHistory).toEqual([{ entryStation: 'Camden', exitStation: 'Euston', fare: 1 }, { entryStation: 'Bank', exitStation: 'Victoria', fare: 1 }])
   })
 })

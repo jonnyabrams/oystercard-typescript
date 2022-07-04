@@ -1,17 +1,17 @@
+import Journey from './journey'
+
 export default class Oystercard {
   balance: number
   maxBalance: number
   minFare: number
-  entryStation: string
-  exitStation: string
-  journeyHistory: {entryStation: string, exitStation: string}[]
+  journeyHistory: { entryStation: string, exitStation: string, fare: number }[]
+  currentJourney: Journey
 
   constructor() {
     this.balance = 0
     this.maxBalance = 90
     this.minFare = 1
-    this.entryStation = ''
-    this.exitStation = ''
+    this.currentJourney = new Journey
     this.journeyHistory = []
   }
 
@@ -22,41 +22,27 @@ export default class Oystercard {
   }
 
   touchIn(entryStation: string) {
-    if (this.isInJourney()) throw new Error('Already in journey')
+    if (this.currentJourney.entryStation !== '') throw new Error('Already in journey')
     if (this.balance < this.minFare) throw new Error('Insufficient funds')
 
-    this.entryStation = entryStation
-    this.#changeJourneyStatus()
+    this.currentJourney.startJourney(entryStation)
   }
 
   touchOut(exitStation: string) {
-    if (!this.isInJourney()) throw new Error('Not in journey')
+    if (this.currentJourney.entryStation === '') throw new Error('Not in journey')
 
-    this.exitStation = exitStation
+    this.currentJourney.endJourney(exitStation)
     this.#handleTouchOut()
   }
 
-  isInJourney(): boolean {
-    return this.entryStation === '' ? false : true
-  }
-
-  #deduct(amount: number): number {
-    return this.balance -= amount
-  }
-
-  #changeJourneyStatus() {
-    if (this.isInJourney() === true) {
-      this.isInJourney() === false
-    } else {
-      this.isInJourney() === true
-    }
+  #deduct(): number {
+    return this.balance -= this.currentJourney.fareCharged()
   }
 
   #handleTouchOut() {
-    this.#deduct(1)
-    this.journeyHistory.push({ entryStation: this.entryStation, exitStation: this.exitStation })
-    this.entryStation = ''
-    this.#changeJourneyStatus()
+    this.#deduct
+    this.journeyHistory.push({ entryStation: this.currentJourney.entryStation, exitStation: this.currentJourney.exitStation, fare: this.currentJourney.fareCharged() })
+    this.currentJourney.entryStation = ''
   }
 
 }
